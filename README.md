@@ -4,7 +4,7 @@
 
 ![Faster / Slower for YouTube](store/promo-marquee.png)
 
-Chrome and Firefox extension that plays YouTube faster or slower **at the original pitch**, without the choppy sound of the built-in speed setting. It uses the same sound engine as its Spotify sibling: the video is sped up by plain resampling (smooth, pitch goes up) and a music-grade pitch shifter (Signalsmith Stretch) brings the pitch back down. Unlike the Spotify version, the engine runs inside the YouTube page itself (YouTube's sound isn't copy-protected, so the video can be routed straight through it): no tab capture, so every YouTube tab gets the full engine without a click.
+Chrome and Firefox extension that plays YouTube faster or slower **at the original pitch**, without the choppy sound of the built-in speed setting. It uses the same sound engine as its Spotify sibling, [spotify-faster-slower-playback-speed](https://github.com/citrunade/spotify-faster-slower-playback-speed): the video is sped up by plain resampling (smooth, pitch goes up) and a music-grade pitch shifter (Signalsmith Stretch) brings the pitch back down. Unlike the Spotify version, the engine runs inside the YouTube page itself (YouTube's sound isn't copy-protected, so the video can be routed straight through it): no tab capture, so every YouTube tab gets the full engine without a click.
 
 The pitch shifter needs about 0.15 s, so the sound runs slightly behind. To keep lips in sync, the **picture is held back by the same amount**: the real video keeps playing invisibly and a canvas on top shows each frame that much later.
 
