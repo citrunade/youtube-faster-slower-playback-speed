@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>Faster / Slower</h1>
+  </header>
+  <div class="group">
+    <div class="head"><label for="speed">Speed</label><output id="speedOut" class="big"></output></div>
+    <input id="speed" type="range" min="0.5" max="4" step="0.01">
+    <div class="presets">
+      <button data-speed="0.75">0.75</button>
+      <button data-speed="0.9">0.9</button>
+      <button data-speed="1">1</button>
+      <button data-speed="1.25">1.25</button>
+      <button data-speed="1.5">1.5</button>
+      <button data-speed="2">2</button>
+      <button data-speed="3">3</button>
+      <button data-speed="4">4</button>
+    </div>
+  </div>
+
+  <div class="group engine">
+    <div class="head"><span class="label">Sound</span></div>
+    <div class="seg sound" role="radiogroup" aria-label="Sound method">
+      <button data-sound="auto" role="radio">Auto</button>
+      <button data-sound="music" role="radio">Music</button>
+      <button data-sound="voice" role="radio">Voice</button>
+    </div>
+    <p id="soundHint" class="hint"></p>
+  </div>
+
+  <div class="group" id="pitchGroup">
+    <div class="head"><label for="pitch">Pitch</label><output id="pitchOut"></output></div>
+    <input id="pitch" type="range" min="-18" max="18" step="0.1">
+    <div class="row">
+      <label class="switch inline"><input id="tape" type="checkbox"><span></span>Tape mode</label>
+      <button id="pitchReset" class="ghost">Reset</button>
+    </div>
+    <p id="pitchHint" class="hint"></p>
+  </div>
+
+  <div class="group engine">
+    <div class="row first">
+      <label class="switch inline" title="The sound arrives about 0.15 s late; the picture is held back to match">
+        <input id="picture" type="checkbox"><span></span>Keep picture in sync
+      </label>
+    </div>
+    <div class="head"><label for="sync" title="If lips look early or late, move this">Fine-tune</label><output id="syncOut"></output></div>
+    <input id="sync" type="range" min="-150" max="150" step="5">
+  </div>
+
+  <div class="group engine">
+    <div class="head"><label for="bass">Bass</label><output id="bassOut"></output></div>
+    <input id="bass" type="range" min="0" max="12" step="0.5">
+    <div class="head"><label for="tail" title="Drum hits fade out slower">Drum tail</label><output id="tailOut"></output></div>
+    <input id="tail" type="range" min="0" max="1" step="0.01">
+    <div class="head"><label for="reverb">Reverb</label><output id="reverbOut"></output></div>
+    <input id="reverb" type="range" min="0" max="1" step="0.01">
+  </div>
+
+  <div class="group">
+    <div class="row first">
+      <label class="switch inline" title="On: your settings carry over everywhere. Off: every video starts at normal speed, original pitch and no effects">
+        <input id="keep" type="checkbox"><span></span>Keep settings for next videos
+      </label>
+    </div>
+    <p id="keepHint" class="hint"></p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

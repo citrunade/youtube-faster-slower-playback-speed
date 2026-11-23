@@ -1,0 +1,94 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Faster / Slower Control",
+  "short_name": "Faster / Slower",
+  "version": "0.0.0",
+  "description": "Speed up or slow down YouTube at the original pitch, smooth enough for music, with the picture in sync. Not affiliated with YouTube.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{53d7acd0-4c6d-4720-9364-2960a171dcb7}",
+      "strict_min_version": "132.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://m.youtube.com/*",
+    "https://music.youtube.com/*"
+  ],
+  "background": {
+    "scripts": ["service-worker.js"]
+  },
+  "action": {
+    "default_title": "YouTube Faster / Slower: click to turn on or off",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
+  },
+  "commands": {
+    "toggle": {
+      "suggested_key": {
+        "default": "Alt+Shift+S"
+      },
+      "description": "Turn Faster / Slower on or off"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*",
+        "https://music.youtube.com/*"
+      ],
+      "js": [
+        "page-rate.js"
+      ],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*",
+        "https://music.youtube.com/*"
+      ],
+      "js": [
+        "picture-delay.js",
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "popup.html",
+        "popup.js",
+        "popup.css",
+        "audio-chain.js",
+        "drum-tail-worklet.js",
+        "lib/SignalsmithStretch.mjs"
+      ],
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*",
+        "https://music.youtube.com/*"
+      ]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

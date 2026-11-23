@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- The real settings panel (popup.html + popup.js + popup.css) with made-up settings, for the
+     store screenshots. Settings come from the query string, e.g. ?speed=0.85&tape=1&reverb=0.4.
+     Needs Chrome started with --allow-file-access-from-files (make-screenshots.ps1 does that). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../popup.css">
+<style>html, body { background: transparent !important; } body { padding: 14px 14px 12px; } *, *::after { transition: none !important; }</style>
+</head>
+<body>
+<script>
+{
+  const q = new URLSearchParams(location.search);
+  const num = (k) => (q.has(k) ? Number(q.get(k)) : undefined);
+  const flag = (k) => (q.has(k) ? q.get(k) === '1' : undefined);
+  const set = Object.fromEntries(Object.entries({
+    speed: num('speed'), pitch: num('pitch'), sync: num('sync'), bass: num('bass'), tail: num('tail'), reverb: num('reverb'),
+    tape: flag('tape'), picture: flag('picture'), keep: flag('keep'), sound: q.get('sound') || undefined,
+  }).filter(([, v]) => v !== undefined));
+  const detected = q.get('detected') ? { type: q.get('detected'), why: 'title' } : null;
+  window.chrome = {
+    storage: { local: { get: async (d) => ({ ...d, ...set }), set: async () => {} }, onChanged: { addListener() {} } },
+    runtime: { sendMessage: async () => ({ detected }) },
+  };
+  // Same markup as the real panel: popup.html's body, without its script tag.
+  const x = new XMLHttpRequest();
+  x.open('GET', '../popup.html', false);
+  x.send();
+  const doc = new DOMParser().parseFromString(x.responseText, 'text/html');
+  doc.querySelectorAll('script').forEach((s) => s.remove());
+  document.body.insertAdjacentHTML('beforeend', doc.body.innerHTML);
+  const s = document.createElement('script');
+  s.src = '../popup.js';
+  document.body.appendChild(s);
+}
+</script>
+</body>
+</html>
