@@ -4,7 +4,7 @@
 
 ![Faster / Slower for YouTube](store/promo-marquee.png)
 
-Chrome and Firefox extension that plays YouTube faster or slower **at the original pitch**, without the choppy sound of the built-in speed setting. It uses the same sound engine as its Spotify sibling, [spotify-faster-slower-playback-speed](https://github.com/citrunade/spotify-faster-slower-playback-speed): the video is sped up by plain resampling (smooth, pitch goes up) and a music-grade pitch shifter (Signalsmith Stretch) brings the pitch back down. Unlike the Spotify version, the engine runs inside the YouTube page itself (YouTube's sound isn't copy-protected, so the video can be routed straight through it): no tab capture, so every YouTube tab gets the full engine without a click.
+Chrome extension that plays YouTube faster or slower **at the original pitch**, without the choppy sound of the built-in speed setting. Firefox version: [youtube-faster-slower-playback-speed-firefox](https://github.com/citrunade/youtube-faster-slower-playback-speed-firefox). It uses the same sound engine as its Spotify sibling, [spotify-faster-slower-playback-speed](https://github.com/citrunade/spotify-faster-slower-playback-speed): the video is sped up by plain resampling (smooth, pitch goes up) and a music-grade pitch shifter (Signalsmith Stretch) brings the pitch back down. Unlike the Spotify version, the engine runs inside the YouTube page itself (YouTube's sound isn't copy-protected, so the video can be routed straight through it): no tab capture, so every YouTube tab gets the full engine without a click.
 
 The pitch shifter needs about 0.15 s, so the sound runs slightly behind. To keep lips in sync, the **picture is held back by the same amount**: the real video keeps playing invisibly and a canvas on top shows each frame that much later.
 
@@ -22,13 +22,6 @@ Small promo tile: ![Small promo tile](store/promo-small.png)
 2. **Load unpacked** → pick this folder.
 3. Reload any YouTube tab that was already open.
 
-### Firefox
-
-Same files, own manifest (`firefox/manifest.json`; the build copies the version over from the Chrome manifest).
-
-1. Run `build-firefox.ps1` (`powershell -ExecutionPolicy Bypass -File build-firefox.ps1`). It makes `dist/firefox/` and the upload zip for addons.mozilla.org.
-2. Open `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on** → pick `dist/firefox/manifest.json`.
-
 ## Use
 
 1. It is **on from the start** after installing, in every YouTube tab. **Click the extension's toolbar icon** (or press **Alt+Shift+S**) to turn it off or on — on any page; it is one switch for the whole browser and stays as set through refreshes, other tabs and restarts. While it is off, the icon shows **OFF** and nothing of the extension appears on YouTube. If the browser holds back sound until you've interacted with the page, the engine starts with your first click or key press there (usually the play button). A video paused for more than 10 s puts its tab's engine to sleep; it wakes the moment the video plays.
@@ -42,7 +35,7 @@ Same files, own manifest (`firefox/manifest.json`; the build copies the version 
 
 ## After updating the files
 
-The browser keeps running the old background part of an unpacked extension until it is reloaded. After changing these files, click the extension's reload button (Chrome: `chrome://extensions`; Firefox: rebuild with `build-firefox.ps1`, then **Reload** on `about:debugging`), then reload the YouTube tab. The page shows a reminder when it notices an outdated copy.
+The browser keeps running the old background part of an unpacked extension until it is reloaded. After changing these files, click the extension's reload button on `chrome://extensions`, then reload the YouTube tab. The page shows a reminder when it notices an outdated copy.
 
 ## Limits
 
@@ -58,7 +51,6 @@ The browser keeps running the old background part of an unpacked extension until
 | `content.js` | Runs the sound engine in the page (routes the videos through it, sleeps while paused); speed and picture delay; ads at normal speed; the in-player speed pill, control-bar buttons, hover labels and settings panel |
 | `service-worker.js` | On/off switch, keeps every YouTube tab in step with the settings |
 | `audio-chain.js`, `drum-tail-worklet.js`, `lib/` | Sound engine (shared with the Spotify version; `lib/` is Signalsmith Stretch, MIT licensed) |
-| `firefox/manifest.json`, `build-firefox.ps1` | Firefox version: its manifest, and the build (`dist/firefox/` + upload zip) |
 | `popup.*` | Controls |
-| `store/` | Store listing text (Chrome and Firefox), privacy policy, screenshots and promo tiles. `store/make-screenshots.ps1` renders the screenshots from `store/screenshots.html` (with the real settings panel, `store/panel.html`); `store/make-promo.ps1` renders the promo tiles from `store/promo.html` |
+| `store/` | Chrome Web Store listing text, privacy policy, screenshots and promo tiles. `store/make-screenshots.ps1` renders the screenshots from `store/screenshots.html` (with the real settings panel, `store/panel.html`); `store/make-promo.ps1` renders the promo tiles from `store/promo.html` |
 | `build-store.ps1` | Builds the zip to upload (`dist/`) |

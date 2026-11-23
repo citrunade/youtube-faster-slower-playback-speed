@@ -78,7 +78,3 @@ Then tick all three certifications:
 ## Package
 
 Run `powershell -ExecutionPolicy Bypass -File build-store.ps1` in this folder and upload the zip it creates in `dist/`.
-
-## Firefox (addons.mozilla.org)
-
-Same name, summary and description. Category: Photos, Music & Videos. Upload the zip from `build-firefox.ps1` (in `dist/`, name ending in `-firefox-<version>.zip`). When asked whether the add-on contains machine-generated code, answer yes: `lib/SignalsmithStretch.mjs` is the compiled Signalsmith Stretch library (MIT licence, https://github.com/Signalsmith-Audio/signalsmith-stretch); point the reviewer to its public source and say which release it is. Everything else is hand-written and unminified.
